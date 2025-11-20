@@ -1,0 +1,34 @@
+/*
+Adam Rubinberg Multiplication Table Lab
+I went a bit extra and decided to allow the user to do a table up to any value squared,
+including extended consistent formatting for larger numbers.
+Unfortunately, anything over 45 maxes out the output limit on jdoodle. Mainly thanks to the drawn table
+Earlier tests showed it working for higher numbers too
+*/
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int max;
+    cout<<"Enter a number for the multiplication table to max out at: ";
+    cin>>max;
+    while (max<=0) {//Check for 0 or negative numbers
+        cout<<"Nope. Try again.\n";
+        cin>>max;
+    }
+    int length = static_cast<int>(floor(log10(max*max)))+2;//Calculates the number of digits in the highest value that will be present. +1 for formatting
+    if (length <5) {//space should be at least 5
+    length=5;
+    }
+    for (int y=1; y<=max;y++) {
+        cout<<endl<<string((length+2)*max-1,'-')<<endl;//with the other characters, this works out for shorter and longer sizes
+        for (int x=1;x<=max;x++) {
+            cout<<left<<setw(length)<<x*y;
+            cout<<"| ";
+        }
+    }
+    cout<<endl<<string((length+2)*max-1,'-')<<endl;//Add a bottom line
+}
