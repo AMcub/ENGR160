@@ -1,0 +1,71 @@
+/* 
+Number guessing program that cheats.
+Does not account for users entering non-numbers or multi-character responses to the correct check
+*/
+
+#include <iostream>
+
+long int x; //Number being guessed
+char correct; //For user input
+int checker();//Declared here to enable recursion
+
+using namespace std;
+
+int disclaimer() {//For ending
+    cout <<"\n\n\n\n\n\nOk, I might have cheated...";
+    return 0;
+}
+
+int retry() {//User claimed number was incorrect. This is impossible
+    cout <<"The number you are thinking of is: "<<x<<endl;
+    cout <<"Is this correct? Use 'y' for yes & 'n' for no.\n";
+    cin >> correct;
+    if (correct=='y') {
+        cout <<"Told you so.";
+        disclaimer();
+    }
+    else if (correct=='n') {
+        cout <<"Liar!\nLet's try this again...\n";
+        retry();
+}
+    else {
+        checker();
+    }
+    return 0;
+}
+int checker() {//User entered an input other than y or n
+    cout <<"Invalid input. Please use 'y' for yes & 'n' for no.\n";
+    cin >> correct;
+    if (correct=='y') {
+        cout <<"Told you so.";
+        disclaimer();
+    }
+    else if (correct=='n') {
+        cout <<"Liar!\nLet's try this again...\n";
+        retry();
+}
+    else {
+        checker();
+    }
+return 0;
+}
+
+int main() {
+    cout <<"I can guess what number you are thinking of!\n";
+    cout <<"Please enter a number: ";
+    cin >> x;
+    cout <<"The number you are thinking of is: "<<x<<endl;
+    cout <<"Is this correct? Use 'y' for yes & 'n' for no.\n";
+    cin >> correct;
+    if (correct=='y') {
+        cout <<"Told you so.";
+        disclaimer();
+    }
+    else if (correct=='n') {
+        cout <<"Liar!\nLet's try this again...\n";
+        retry();
+}
+    else {
+        checker();
+    }
+}
