@@ -1,0 +1,36 @@
+//Recursion plus an earworm of a song equals chaos
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+void verse1(); //Have to declare this one early so it can be referenced in verse 4
+void verse4() {
+    cout<<"and now I'll ";
+    if (rand()%100==0) {//1% chance to end it
+        cout<<"stop printing it because I had a change of heart. You're welcome.";
+        return;
+    }
+    else{
+    cout<<"keep on printing this forever just because ";
+    verse1();
+    }
+}
+void verse3() {
+    cout<<"One day, I starting running it, not knowing what it was,\n";
+    verse4();
+}
+void verse2() {
+    cout<<"Yes, it goes on and on my friends.\n";
+    verse3();
+}
+void verse1() {
+    cout<<"this is the program that never ends.\n";
+    verse2();
+}
+
+int main() {
+    srand(time(0));
+    cout<<"This is the program that never ends. ";//The first time it needs to be capitalized
+    verse2();//Enter the function loop
+}
