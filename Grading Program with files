@@ -1,0 +1,71 @@
+/*
+Added the ability to write the grades to a file, because I felt I could use the practice with it
+
+Adam Rubinberg
+*/
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <array>
+#include <string>
+
+using namespace std;
+
+ofstream gradeBook;//This has to be up here since I was required to make calcAverage a void function, meaning I need to write to the file from there
+
+void getScore(int& score) {//As required
+    int input;
+   cin>>input;
+   while (input<0 || input >100) {//Valid input checker
+       cout<<"Invalid Score. Please try again.\n";
+       cin>>input;
+   }
+   score=input;
+}
+
+int findLowest(int fullList[5]) {//Had to put this before calcAverage since it gets called there
+    int lowest=fullList[0];
+    for (int k=1; k<5;k++) {
+        if (fullList[k]<lowest) {
+            lowest=fullList[k];
+        }
+    }
+    return lowest;
+}
+
+void calcAverage(int scoreList[5]) {
+    int sum=0;
+    double average;
+    for (int n=0; n<5; n++) {
+        sum+=scoreList[n];
+    }
+    sum-=findLowest(scoreList);
+    average = static_cast<double>(sum)/4.0;
+    cout<<"The final score is "<<average<<endl;
+    gradeBook<<average<<endl;//satisfies output requirement and the additional file
+}
+
+
+int main() {
+    gradeBook.open("/myfiles/grades.txt");
+    gradeBook <<left<<setw(40)<<"Student Name";
+    gradeBook<<"Final Grade\n";//Formatting
+    string name;
+    int scores[5];//Could modify this later so it can work with any number of total tests. Would have to change every instance hard programmed in though
+    char more;//Could have done a boolean
+    do {//At least one run through is required
+    cout<<"Please input student name: ";
+    getline(cin,name);//Allows for spaces in a first name, last name type situaton.
+    for (int i=0;i<5;i++) {
+        cout<<"Please enter the score for test "<<i+1<<": ";//This prints here since i is not sent to the function
+        getScore(scores[i]);
+    }
+    gradeBook<<setw(40)<<name;
+    calcAverage(scores);
+    cout<<"Do you have more students to include? Type 'y' or 'Y' for yes\n";
+    cin>>more;
+    cin.ignore(2, '\n');//Required for the program to be able to switch between getline and cin, rather than being forced to use cin throughout
+    } while (more=='y'||more=='Y');
+    gradeBook.close();
+}
